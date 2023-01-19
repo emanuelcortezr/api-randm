@@ -3,7 +3,7 @@ import logocontact from '../assets/logocontact.png';
 
 const Contact = () => {
   return (
-    <div>
+    <>
       <div className="contact" id="contact">
         <div className="container">
           <div className="row">
@@ -36,8 +36,8 @@ const Contact = () => {
           </div>
         </div>
       </div>
-      <div className="footer">© 2022 Edicto Cortez</div>
-    </div>
+      <footer className="footer">© 2022 Edicto Cortez</footer>
+    </>
   );
 };
 

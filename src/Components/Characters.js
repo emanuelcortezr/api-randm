@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { allCharacters } from '../Functions/Functions';
 import Contact from './Contact';
 import Navbar from './Navbar';
+import serie from '../assets/serie.png';
 
 const Characters = () => {
   const [characters, setCharacters] = useState(null);
@@ -17,17 +18,30 @@ const Characters = () => {
         const regex = new RegExp(e.target.value.toLowerCase());
         return regex.test(str);
       });
-      setCharacters(response);
+
+      if (response.length > 0) {
+        setCharacters(response);
+      } else {
+        setCharacters(null);
+      }
     }
     if (e.target.value.length === 0) {
       allCharacters(setCharacters);
     }
-    console.log(characters);
   };
 
-  const [stateEmpty, setHeart] = useState(false);
-  const favoriteStuffing = () => {
-    setHeart(!stateEmpty);
+  const toggleFavorite = (char) => {
+    let modifiedCharacters = characters.map((item) => {
+      if (char === item.id) {
+        return { ...item, heart: item.heart ? !item.heart : true };
+      } else {
+        return item;
+      }
+    });
+
+    // console.log(modifiedCharacters);
+
+    setCharacters(modifiedCharacters);
   };
   return (
     <>
@@ -47,54 +61,63 @@ const Characters = () => {
           />
         </div>
         <div className="cards">
-          {characters != null
-            ? characters.map((character) => (
-                <div key={character.id}>
-                  <div className="grid">
-                    <figure className="effect">
-                      <img
-                        src={character.image}
-                        className="card-img-top"
-                        alt="..."
-                      />
-                      <figcaption>
-                        <h2>{character.name}</h2>
-                        <p>
-                          {character.species}
-                          <span className="dash"> • </span>
-                          {character.status}
-                          <span className="dash"> • </span>
-                          {character.gender}
-                        </p>
-                        <p>
-                          Origin<span className="dash"> : </span>
-                          {character.origin.name}
-                        </p>
-                        <p>
-                          Now in<span className="dash"> : </span>
-                          {character.location.name}
-                        </p>
-                        {/* <a href="#">View more</a> */}
-                        <p className="heart">
-                          <a
-                            href="#"
-                            onClick={favoriteStuffing}
-                            className={'empty ' + (stateEmpty ? 'full' : ' ')}
-                          >
-                            {stateEmpty ? (
-                              <ion-icon name="heart"></ion-icon>
-                            ) : (
-                              <ion-icon name="heart-outline"></ion-icon>
-                            )}
-                          </a>
-                        </p>
-                      </figcaption>
-                    </figure>
-                  </div>
-                  {/* --------------------------- */}
+          {characters != null ? (
+            characters.map((character) => (
+              <div key={character.id}>
+                <div className="grid">
+                  <figure className="effect">
+                    <img
+                      src={character.image}
+                      className="card-img-top"
+                      alt="..."
+                    />
+                    <figcaption>
+                      <h2>{character.name}</h2>
+                      <p>
+                        {character.species}
+                        <span className="dash"> • </span>
+                        {character.status}
+                        <span className="dash"> • </span>
+                        {character.gender}
+                      </p>
+                      <p>
+                        Origin<span className="dash"> : </span>
+                        {character.origin.name}
+                      </p>
+                      <p>
+                        Now in<span className="dash"> : </span>
+                        {character.location.name}
+                      </p>
+                      {/* <a href="#">View more</a> */}
+                      <p className="heart">
+                        <a
+                          onClick={() => {
+                            toggleFavorite(character.id);
+                          }}
+                          className={
+                            'empty ' + (character.heart ? 'full' : ' ')
+                          }
+                        >
+                          {character.heart === true ? (
+                            <ion-icon name="heart"></ion-icon>
+                          ) : (
+                            <ion-icon name="heart-outline"></ion-icon>
+                          )}
+                        </a>
+                      </p>
+                    </figcaption>
+                  </figure>
                 </div>
-              ))
-            : 'no hay personajes'}
+              </div>
+            ))
+          ) : (
+            <div style={{ textAlign: 'center', margin: '30px 0 30px 0' }}>
+              <img src={serie} alt="..." style={{ width: '80%' }} />
+              <h2 style={{ color: 'grey' }}>
+                No hay personajes con el texto ingresado
+              </h2>
+            </div>
+          )}
         </div>
       </div>
       <Contact />
