@@ -9,7 +9,6 @@ import serie from '../assets/serie.png';
 const Episodes = () => {
   const [episodes, setEpisodes] = useState(null);
   const [characters, setCharacters] = useState(null);
-  console.log(episodes);
 
   useEffect(() => {
     allEpisodes(setEpisodes);
@@ -35,23 +34,16 @@ const Episodes = () => {
     }
   };
 
-  const toggleFavorite = (char) => {
-    let modifiedCharacters = characters.map((item) => {
-      if (char === item.id) {
+  const toggleFavorite = (episode) => {
+    let modifiedEpisodes = episodes.map((item) => {
+      if (episode === item.id) {
         return { ...item, heart: item.heart ? !item.heart : true };
       } else {
         return item;
       }
     });
 
-    setCharacters(modifiedCharacters);
-  };
-
-  const showImageCharacter = () => {
-    const idCharacterRandom =
-      characters[Math.floor(Math.random() * characters.length)];
-    const image = idCharacterRandom.image;
-    return image;
+    setEpisodes(modifiedEpisodes);
   };
 
   return (
@@ -67,7 +59,7 @@ const Episodes = () => {
 
       <div className="container">
         <div className="mb-3">
-          <label for="exampleFormControlInput1" className="form-label">
+          <label htmlFor="exampleFormControlInput1" className="form-label">
             NOMBRE DEL EPISODIO
           </label>
           <input
@@ -80,12 +72,12 @@ const Episodes = () => {
         </div>
         <div className="cards">
           {episodes != null ? (
-            episodes.map((episode) => (
+            episodes.map((episode, index) => (
               <div key={episode.id}>
                 <div className="grid">
                   <figure className="effect">
                     <img
-                      src={showImageCharacter()}
+                      src={characters[index].image}
                       className="card-img-top"
                       alt="..."
                     />
@@ -108,7 +100,7 @@ const Episodes = () => {
                       </p>
                       {/* <a href="#">View more</a> */}
                       <p className="heart">
-                        <a
+                        <button
                           onClick={() => {
                             toggleFavorite(episode.id);
                           }}
@@ -119,7 +111,7 @@ const Episodes = () => {
                           ) : (
                             <ion-icon name="heart-outline"></ion-icon>
                           )}
-                        </a>
+                        </button>
                       </p>
                     </figcaption>
                   </figure>

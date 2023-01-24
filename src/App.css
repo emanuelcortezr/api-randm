@@ -386,3 +386,8 @@ footer {
   padding-bottom: 10px;
   text-align: center;
 }
+
+button {
+  background-color: transparent;
+  border: transparent;
+}
