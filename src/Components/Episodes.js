@@ -34,17 +34,17 @@ const Episodes = () => {
     }
   };
 
-  const toggleFavorite = (episode) => {
-    let modifiedEpisodes = episodes.map((item) => {
-      if (episode === item.id) {
-        return { ...item, heart: item.heart ? !item.heart : true };
-      } else {
-        return item;
-      }
-    });
+  // const toggleFavorite = (episode) => {
+  //   let modifiedEpisodes = episodes.map((item) => {
+  //     if (episode === item.id) {
+  //       return { ...item, heart: item.heart ? !item.heart : true };
+  //     } else {
+  //       return item;
+  //     }
+  //   });
 
-    setEpisodes(modifiedEpisodes);
-  };
+  //   setEpisodes(modifiedEpisodes);
+  // };
 
   return (
     <>
@@ -84,22 +84,16 @@ const Episodes = () => {
                     <figcaption>
                       <h2>{episode.name}</h2>
                       <p>
-                        {episode.created}
-                        <span className="dash"> • </span>
+                        Air date <span className="dash"> : </span>
                         {episode.air_date}
-                        <span className="dash"> • </span>
-                        {episode.url}
                       </p>
-                      {/* <p>
-                        Origin<span className="dash"> : </span>
-                        {episode.characters}
-                      </p> */}
                       <p>
-                        Now in<span className="dash"> : </span>
+                        Episode<span className="dash"> : </span>
                         {episode.episode}
                       </p>
+
                       {/* <a href="#">View more</a> */}
-                      <p className="heart">
+                      {/* <p className="heart">
                         <button
                           onClick={() => {
                             toggleFavorite(episode.id);
@@ -112,7 +106,7 @@ const Episodes = () => {
                             <ion-icon name="heart-outline"></ion-icon>
                           )}
                         </button>
-                      </p>
+                      </p> */}
                     </figcaption>
                   </figure>
                 </div>
@@ -121,10 +115,10 @@ const Episodes = () => {
             ))
           ) : (
             <div>
-              <p style={{ color: 'red' }}>
+              <p style={{ color: 'red', fontSize: '30px' }}>
                 No hay episodios con el texto ingresado
               </p>
-              <img src={serie} alt="..." style={{ width: '100px' }} />
+              <img src={serie} alt="..." style={{ width: '500px' }} />
             </div>
           )}
         </div>

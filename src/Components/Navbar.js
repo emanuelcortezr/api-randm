@@ -30,7 +30,14 @@ const Navbar = () => {
               </li>
               <li className="nav-item">
                 {/* aqui abajo ira el enlace a mi portafolio */}
-                <a className="nav-link">Diseño</a>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://emanuelcortezr.github.io/miportafolio/"
+                  className="nav-link"
+                >
+                  Diseño
+                </a>
               </li>
             </ul>
           </div>
